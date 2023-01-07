@@ -1,0 +1,232 @@
+.App {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tile {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  transition: background 0.5s ease-in-out; 
+}
+
+.polje {
+  height: 110px;
+  width: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.igra {
+  border: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 50px 0;
+}
+
+.trava {
+  background: url("./assets/trava.png");
+  background-size: cover;
+}
+
+.voda {
+  background: url("./assets/voda.png");
+  background-size: cover;
+}
+
+.put {
+  background: url("./assets/put.png");
+  background-size: cover;
+}
+
+.zemlja {
+  background: url("./assets/zemlja.png");
+  background-size: cover;
+}
+
+.zid {
+  background: url("./assets/zid.png");
+  background-size: cover;
+}
+
+.pesak {
+  background: url("./assets/pesak.png");
+  background-size: cover;
+}
+
+.red {
+  display: flex;
+}
+
+.dot {
+  width: 30%;
+  height: 30%;
+  border-radius: 100%;
+  background-color: rgb(30, 176, 255);
+  color: white;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+
+.mark {
+  height: 100%;
+}
+
+.tileAgent {
+  height: 100%;
+  position: relative;
+}
+
+.borderWhite {
+  border: 1px solid white;
+}
+
+.tileLayer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+}
+
+.tileRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.inputField {
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+  outline: none;
+  padding: 10px 20px;
+  border-bottom: 2px solid white;
+}
+
+.inputField:focus {
+  border: 1px solid white;
+}
+
+.agenti {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.agent {
+    height: 70px;
+    background-color: rgb(35, 35, 35);
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 50px;
+    margin: 10px;
+}
+
+.agent:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+.current {
+    background-color: white;
+}
+
+.inputDiv {
+  display: flex;
+  width: 100%;
+  align-self: center;
+  justify-content: space-around;
+  margin: 50px 0;
+}
+
+.generateMapButton {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-size: 1.5em;
+  padding: 20px 30px;
+  border: 2px solid white;
+  margin-bottom: 50px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.generateMapButton:hover {
+  cursor: pointer;
+  background-color: white;
+  color: black;
+}
+
+.cross {
+  height: 120px;
+  position: absolute;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 800px) {
+  .inputDiv {
+      width: 60%;
+      flex-direction: column;
+  }
+
+  .inputDiv > div {
+      margin: 20px 0;
+  }
+
+  .inputDiv > div > label {
+      font-size: 0.8em;
+  }
+
+  .inputField {
+      font-size: 1.25em;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .tile {
+      height: 40px;
+      width: 40px;
+  }
+
+  .polje {
+      height: 35px;
+      width: 35px;
+  }
+
+  .agent {
+      padding: 5px 15px;
+      height: 25px;
+  }
+
+  .dot {
+      width: 20%;
+      height: 20%;
+      font-size: 7px;
+  }
+}
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused,
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+  color: white !important;
+  font-size: 1.35rem !important;
+  font-weight: bold !important;
+}
