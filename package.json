@@ -6,9 +6,7 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "preview": "vite preview --port 3000"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

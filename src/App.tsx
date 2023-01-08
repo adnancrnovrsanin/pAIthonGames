@@ -1,8 +1,8 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import PyTanja from './pages/PyTanja'
-import PyStolovina from './pages/PyStolovina'
-import Home from './pages/Home'
+import PyTanja from './pages/PyTanja.js'
+import PyStolovina from './pages/PyStolovina.js'
+import Home from './pages/Home.js'
 
 function App() {
   return (

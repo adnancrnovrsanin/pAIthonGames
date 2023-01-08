@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useStore } from "../stores/store";
+import { useStore } from "../stores/store.js";
 import compAgent from "../assets/StudentAgent.png";
 import road from '../assets/road.png';
 import hole0 from '../assets/hole0.png';
@@ -18,7 +18,7 @@ import draza from '../assets/Draza.png';
 import bole from '../assets/Bole.png';
 import crossImage from '../assets/x.png';
 import '../App.css';
-import { getRandomInt } from "../helpers/usefulFunctions";
+import { getRandomInt } from "../helpers/usefulFunctions.js";
 
 interface Props {
     tile: string;

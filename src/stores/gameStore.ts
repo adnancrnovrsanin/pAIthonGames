@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
-import { dimensionsMiddleware, getAgentPosition, getRandomInt } from "../helpers/usefulFunctions";
+import { dimensionsMiddleware, getAgentPosition, getRandomInt } from "../helpers/usefulFunctions.js";
 import axios from "axios";
-import { APIBase } from "../constants/hosts";
+import { APIBase } from "../constants/hosts.js";
 
 export default class GameStore {
     board: Array<Array<string>> = [[]];

@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "../stores/store";
-import Tile from "./Tile";
+import Tile from "./Tile.js";
 import "../App.css";
 
 function TileLayer() {

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import Tile from "./Tile";
+import Tile from "./Tile.js";
 
 interface Props {
     mapa: number[][],
