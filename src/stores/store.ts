@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import GameStore from "./gameStore.js";
+import GameStore from "./gameStore";
 
 interface Store {
     gameStore: GameStore;

@@ -6,11 +6,11 @@ import bole from '../assets/Bole.png';
 import draza from '../assets/Draza.png';
 import jocke from '../assets/Jocke.png';
 import axios from 'axios';
-import Igra from '../PyTanjaComponents/Igra.js';
+import Igra from '../PyTanjaComponents/Igra';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import { Link } from "react-router-dom";
 import logo from '../assets/LogoGameLauncherBlack.png';
-import { APIBase } from '../constants/hosts.js';
+import { APIBase } from '../constants/hosts';
 
 //road 2; grass 3; mud 5; sand 7; water 500; wall 1000;
 
