@@ -5,7 +5,6 @@ import aki from '../assets/Aki.png';
 import bole from '../assets/Bole.png';
 import draza from '../assets/Draza.png';
 import jocke from '../assets/Jocke.png';
-import mark from '../assets/x.png';
 import axios from 'axios';
 import Igra from '../PyTanjaComponents/Igra.js';
 import Grid2 from '@mui/material/Unstable_Grid2';
