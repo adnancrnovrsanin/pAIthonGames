@@ -19,6 +19,7 @@ import bole from '../assets/Bole.png';
 import crossImage from '../assets/x.png';
 import '../App.css';
 import { getRandomInt } from "../helpers/usefulFunctions";
+import { toast } from "react-toastify";
 
 interface Props {
     tile: string;
@@ -56,7 +57,7 @@ function Tile({ tile, row, col }: Props) {
             setPlayerAgentPosition([row, col]);
             makeAComputerMove();
         } else {
-            console.log("Wrong move!");
+            toast.error("You can't move there!");
         }
     }
 

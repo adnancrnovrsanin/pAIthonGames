@@ -11,6 +11,8 @@ import TileLayer from '../PyStolovinaComponents/TileLayer';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import logo from '../assets/LogoGameLauncherBlack.png';
 import { Link } from 'react-router-dom';
+import { reaction } from 'mobx';
+import { toast } from 'react-toastify';
 
 
 function PyStolovina() {
@@ -52,6 +54,14 @@ function PyStolovina() {
   }
 
   function handleDimensionsInputChange(e: ChangeEvent<HTMLInputElement>): void {
+    if (isNaN(+e.target.value)) {
+      toast.error("Please enter a number!");
+      e.target.value = '0';
+    }
+    if (+e.target.value <= 0) {
+      toast.error("Dimensions must be positive!");
+      e.target.value = '1';
+    }
     if (e.target.name === 'rows')
       changeBoardRows(+e.target.value);
     else if (e.target.name === 'columns')

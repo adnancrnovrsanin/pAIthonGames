@@ -1,5 +1,5 @@
-import { FormControl, FormHelperText, InputBase, InputLabel, MenuItem, Select, SelectChangeEvent, Typography, styled, useTheme } from '@mui/material';
-import { MouseEvent, useEffect, useState } from 'react';
+import { FormControl, FormHelperText, InputBase, InputLabel, MenuItem, Select, SelectChangeEvent, Typography, styled, useTheme, withStyles } from '@mui/material';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import '../App.css';
 import aki from '../assets/Aki.png';
 import bole from '../assets/Bole.png';
@@ -11,6 +11,7 @@ import Grid2 from '@mui/material/Unstable_Grid2';
 import { Link } from "react-router-dom";
 import logo from '../assets/LogoGameLauncherBlack.png';
 import { APIBase } from '../constants/hosts';
+import { toast } from 'react-toastify';
 
 //road 2; grass 3; mud 5; sand 7; water 500; wall 1000;
 
@@ -124,9 +125,17 @@ function PyTanja() {
   const [pathToGoal, setPathToGoal] = useState<Array<Array<number>>>([]);
   const [markChanged, setMarkChanged] = useState<Boolean>(false);
   const [isMoving, setIsMoving] = useState<Boolean>(false);
+  const [mapChanged, setMapChanged] = useState<Boolean>(false);
   const theme = useTheme();
 
   useEffect(() => {
+
+    if (mapChanged) {
+      setPozicija([0, 0]);
+      setMarkedTile([0, 0]);
+      setPathToGoal([]);
+      setMapChanged(false);
+    }
 
     if (pozicija[0] === markedTile[0] && pozicija[1] === markedTile[1]) 
       setIsMoving(false); 
@@ -146,7 +155,7 @@ function PyTanja() {
     return () => {
       clearInterval(interval);
     }
-  }, [markedTile, pathToGoal, markChanged, pozicija, isMoving]);
+  }, [markedTile, pathToGoal, markChanged, pozicija, isMoving, mapChanged]);
 
   const fetchData = async (url: string) => {
     try {
@@ -164,6 +173,10 @@ function PyTanja() {
   }
 
   const handleAgentChange = (e: MouseEvent) => {
+    if (isMoving) {
+      toast.error("You can't change swap agents while the one is in action!");
+      return;
+    }
     if (!isMoving) {
       switch((e.target as HTMLImageElement).alt) {
         case 'Aki':
@@ -183,6 +196,7 @@ function PyTanja() {
   }
   
   const handleMapChange = (e: SelectChangeEvent) => {
+    setMapChanged(true);
     if (!isMoving) {
       setCurrentMap(e.target.value);
       switch(+e.target.value) {
@@ -320,7 +334,16 @@ function PyTanja() {
       </div>
 
       <FormControl sx={{ m: 2, width: '100%' }}>
-        <InputLabel id="demo-simple-select-helper-label">Pick a map</InputLabel>
+        <InputLabel id="demo-simple-select-helper-label"
+          sx={{
+            '&.MuiInputLabel-root': {
+              color: "white",
+            },
+            '&.Mui-focused': {
+              color: "white",
+            }
+          }}
+        >Pick a map</InputLabel>
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
@@ -331,6 +354,7 @@ function PyTanja() {
           className="selectMUI"
           //@ts-ignore
           disabled={isMoving}
+          onClick={() => isMoving && toast.error("You can't change the map while the agent is moving!")}
           input={<CustomInput />}
         >
           <MenuItem value={0}>Tutorial</MenuItem>
