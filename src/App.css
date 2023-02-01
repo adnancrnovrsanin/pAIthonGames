@@ -180,13 +180,52 @@
 .cross {
   height: 120px;
   position: absolute;
+  z-index: 2;
+}
+
+.hisTurn {
+  height: 120px;
+  width: 120px;
+  background-color: rgba(30, 176, 255, 0.1);
+  border: 2px solid white;
+  border-radius: 100%;
+  position: absolute;
   z-index: 1;
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.textField {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  align-self: center;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 50px 0;
 }
 
 @media only screen and (max-width: 800px) {
-  .inputDiv {
+  .row {
       width: 60%;
       flex-direction: column;
+      margin: 0px;
+      align-items: center;
   }
 
   .inputDiv > div {
@@ -199,6 +238,10 @@
 
   .inputField {
       font-size: 1.25em;
+  }
+
+  .textField {
+      margin: 20px 0;
   }
 }
 

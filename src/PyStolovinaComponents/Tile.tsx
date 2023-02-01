@@ -20,6 +20,7 @@ import crossImage from '../assets/x.png';
 import '../App.css';
 import { getRandomInt } from "../helpers/usefulFunctions";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 interface Props {
     tile: string;
@@ -30,35 +31,22 @@ interface Props {
 var images = [hole0, hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9];
 
 function Tile({ tile, row, col }: Props) {
-    const { gameStore: { 
-        userAgentPosition,
-        compAgentPosition,
-        setPlayerAgentPosition,
+    const { gameStore: {
         makeAMove,
-        makeAComputerMove,
-        thinking,
-        currentAgent,
-        winner,
+        isMoveValid,
+        board,
+        userPlayers,
+        aiPlayers,
+        loosers,
+        currentAgents,
+        currentTurn,
         gameIsOver,
     }} = useStore();
 
-    const isUserAgent = () => userAgentPosition[0] === row && userAgentPosition[1] === col;
-
-    const isCompAgent = () => compAgentPosition[0] === row && compAgentPosition[1] === col;
-
-    const isRoad = () => tile === "r" || tile === "1" || tile === "0";
-
     function handleTileClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
-        if (
-            isRoad() && !isUserAgent() && !isCompAgent() && !thinking && !gameIsOver &&
-            Math.abs(userAgentPosition[0] - row) <= 1 && Math.abs(userAgentPosition[1] - col) <= 1
-        ) {
-            makeAMove(userAgentPosition[0], userAgentPosition[1], row, col);
-            setPlayerAgentPosition([row, col]);
-            makeAComputerMove();
-        } else {
-            toast.error("You can't move there!");
-        }
+        if (userPlayers.includes(currentTurn))
+            if (isMoveValid(row, col))
+                makeAMove(row, col);
     }
 
     const convertNumberToAgent = (number: number) => {
@@ -74,26 +62,43 @@ function Tile({ tile, row, col }: Props) {
         }
     }
 
+    const isHole = () => tile === 'h';
+
+    const isLooser = () => loosers.some(l => l === tile);
+
+    const isAiAgentHere = () => aiPlayers.some(a => a === tile);
+
+    const isUserAgentHere = () => userPlayers.some(u => u === tile);
+
+    const isHisTurn = () => currentTurn === tile;
+
+    const getMyAgent = () => {
+        if (isUserAgentHere())
+            return currentAgents[+tile];
+        else
+            return -1;
+    }
+
     return (
         <div className={"tile "} onClick={handleTileClick}
             style={{
-                backgroundImage: isRoad() ? `url(${road})` : `url(${images[getRandomInt(9)]})`,
+                backgroundImage: !isHole() ? `url(${road})` : `url(${images[getRandomInt(9)]})`,
             }}
         >
-            {isUserAgent() && !isCompAgent() && isRoad() &&
-                <img src={convertNumberToAgent(currentAgent)} alt="user agent" className="tileAgent" />
+            {isUserAgentHere() && !isHole() &&
+                <img src={convertNumberToAgent(getMyAgent())} alt="user agent" className="tileAgent" />
             }
 
-            {!isUserAgent() && isCompAgent() && isRoad() &&
+            {isAiAgentHere() && !isHole() &&
                 <img src={compAgent} alt="comp agent" className="tileAgent" />
             }
 
-            {isUserAgent() && winner === '0' &&
+            {isLooser() &&
                 <img src={crossImage} alt="cross" className="cross"/>
             }
 
-            {isCompAgent() && winner === '1' &&
-                <img src={crossImage} alt="cross" className="cross"/>
+            {isHisTurn() && !isLooser() && !gameIsOver &&
+                <div className="hisTurn"></div>
             }
         </div>
     );

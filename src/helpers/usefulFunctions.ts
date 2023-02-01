@@ -14,7 +14,7 @@ export const getAgentPosition = (board: Array<Array<string>>, agent: string): nu
 
 export const dimensionsMiddleware = (rows: number, columns: number) => {
     if (rows === 0 && columns === 0) 
-        return { rows: 4 + getRandomInt(4), columns: 4 + getRandomInt(4) };
+        return { rows: 5 + getRandomInt(4), columns: 5 + getRandomInt(4) };
     if (rows > 17 && columns > 17) return { rows: 17, columns: 17 };
     if (rows > 17) return { rows: 17, columns };
     if (columns > 17) return { rows, columns: 17 };

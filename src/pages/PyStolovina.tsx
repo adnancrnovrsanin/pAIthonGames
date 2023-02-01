@@ -1,7 +1,7 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
 import '../App.css'
 import { observer } from 'mobx-react-lite'
-import { CircularProgress, Typography, useTheme } from '@mui/material';
+import { Button, CircularProgress, Typography, useTheme } from '@mui/material';
 import aki from '../assets/Aki.png';
 import jocke from '../assets/Jocke.png';
 import draza from '../assets/Draza.png';
@@ -13,18 +13,20 @@ import logo from '../assets/LogoGameLauncherBlack.png';
 import { Link } from 'react-router-dom';
 import { reaction } from 'mobx';
 import { toast } from 'react-toastify';
+import Settings from '../PyStolovinaComponents/Settings';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 
 function PyStolovina() {
   const { gameStore: { 
     loadMap,
     loading,
-    currentAgent,
+    currentAgents,
+    currentTurn,
     setCurrentAgent,
-    boardColumns,
-    boardRows,
-    changeBoardColumns,
-    changeBoardRows,
+    settingsOpen,
+    setSettingsOpen,
+    userPlayers,
     gameIsOver,
   } } = useStore();
 
@@ -39,34 +41,21 @@ function PyStolovina() {
   function handleAgentChange(e: MouseEvent<HTMLImageElement>) {
     switch((e.target as HTMLImageElement).alt) {
       case 'Aki':
-        setCurrentAgent(0);
+        setCurrentAgent(0, currentTurn);
         break;
       case 'Jocke':
-        setCurrentAgent(1);
+        setCurrentAgent(1, currentTurn);
         break;
       case 'Draza':
-        setCurrentAgent(2);
+        setCurrentAgent(2, currentTurn);
         break;
       case 'Bole':
-        setCurrentAgent(3);
+        setCurrentAgent(3, currentTurn);
         break;
     }
   }
 
-  function handleDimensionsInputChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (isNaN(+e.target.value)) {
-      toast.error("Please enter a number!");
-      e.target.value = '0';
-    }
-    if (+e.target.value <= 0) {
-      toast.error("Dimensions must be positive!");
-      e.target.value = '1';
-    }
-    if (e.target.name === 'rows')
-      changeBoardRows(+e.target.value);
-    else if (e.target.name === 'columns')
-      changeBoardColumns(+e.target.value);
-  }
+  
 
   return (
     <div className="App">
@@ -102,80 +91,58 @@ function PyStolovina() {
           </Typography>
       </Grid2>
 
-      <Typography
-        sx={{
-          color: "white",
-          margin: "10px 0",
-        }}
-      >
-        {"Pick your agent:"}
-      </Typography>
-
-      <div className="agenti">
-        <img src={aki} alt="Aki" className={"agent " + (currentAgent === 0 && "current")} onClick={handleAgentChange} />
-        <img src={jocke} alt="Jocke" className={"agent " + (currentAgent === 1 && "current")} onClick={handleAgentChange} />
-        <img src={draza} alt="Draza" className={"agent " + (currentAgent === 2 && "current")} onClick={handleAgentChange} />
-        <img src={bole} alt="Bole" className={"agent " + (currentAgent === 3 && "current")} onClick={handleAgentChange} />
-      </div>
-
-      <div className='inputDiv'>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <label htmlFor="rows"
-            style={{
+      {userPlayers.includes(currentTurn) && !gameIsOver && (
+        <>
+          <Typography
+            sx={{
               color: "white",
-              marginLeft: "5px",
-              marginBottom: "5px",
+              margin: "10px 0",
             }}
           >
-            {"Number of rows for the board:"}
-          </label>
-          <input 
-            name="rows"
-            type="text" 
-            placeholder="Number of rows" 
-            className='inputField'
-            value={boardRows}
-            onChange={(e) => handleDimensionsInputChange(e)}
-          />
-        </div>
+            {"Change your agent:"}
+          </Typography>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <label htmlFor="rows"
-            style={{
-              color: "white",
-              marginLeft: "5px",
-              marginBottom: "5px",
+          <div className="agenti">
+            <img src={aki} alt="Aki" className={"agent " + (currentAgents[+currentTurn] === 0 && "current")} onClick={handleAgentChange} />
+            <img src={jocke} alt="Jocke" className={"agent " + (currentAgents[+currentTurn] === 1 && "current")} onClick={handleAgentChange} />
+            <img src={draza} alt="Draza" className={"agent " + (currentAgents[+currentTurn] === 2 && "current")} onClick={handleAgentChange} />
+            <img src={bole} alt="Bole" className={"agent " + (currentAgents[+currentTurn] === 3 && "current")} onClick={handleAgentChange} />
+          </div>
+        </>
+      )}
+
+      {settingsOpen ? (
+        <Settings />
+      ) : (
+        <>
+          <Button
+            variant="contained"
+            sx={{
+                color: "white",
+                border: "1px solid white",
+                bgcolor: "transparent",
+                '&:hover': {
+                    bgcolor: "white",
+                    color: "black",
+                },
+                borderRadius: 0,
+                fontSize: { xs: "12px", sm: "14px", md: "16px", lg: "17px", xl: "18px" },
+                padding: "10px 25px",
+                margin: "50px 0",
             }}
+            onClick={() => setSettingsOpen(true)}
           >
-            {"Number of columns for the board:"}
-          </label>
-          <input 
-            name="columns"
-            type="text" 
-            placeholder="Number of columns" 
-            className='inputField'
-            value={boardColumns}
-            onChange={(e) => handleDimensionsInputChange(e)}
-          />
-        </div>
-      </div>
+              Settings <SettingsIcon sx={{ marginLeft: "10px" }} />
+          </Button>
 
-      <button
-        className="generateMapButton"
-        onClick={() => loadMap()}
-      >
-        {"New Game"}
-      </button>
+          <button
+            className="generateMapButton"
+            onClick={() => loadMap()}
+          >
+            {"New Game"}
+          </button>
+        </>
+      )}
 
       <TileLayer />
     </div>
