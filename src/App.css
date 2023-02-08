@@ -220,9 +220,10 @@
   display: flex;
   width: 100%;
   align-self: center;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-end;
   margin: 50px 0;
+  gap: 35px;
 }
 
 @media only screen and (max-width: 800px) {

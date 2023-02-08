@@ -125,6 +125,10 @@ export default class GameStore {
     }
 
     nextTurn = () => {
+        if (this.gameIsOver) {
+            toast.info('Game is over');
+            return;
+        }
         this.currentTurn = this.allPlayersSorted[(this.allPlayersSorted.indexOf(this.currentTurn) + 1) % this.allPlayersSorted.length];
         while (this.loosers.includes(this.currentTurn))
             this.currentTurn = this.allPlayersSorted[(this.allPlayersSorted.indexOf(this.currentTurn) + 1) % this.allPlayersSorted.length];

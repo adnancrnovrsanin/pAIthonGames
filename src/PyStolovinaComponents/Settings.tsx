@@ -131,17 +131,55 @@ function Settings() {
                     </div>
 
                     <div className="row">
-                        <InputField name="numberOfMinimaxPlayers" label="Enter the number of Minimax agents (they cannot play against more than one player): " placeholder="Enter a number..." type="number" />
-                        <img src={minimaxAgent} alt="minimax agent" className="settings-agent" />
-                        <InputField name="numberOfMinimaxABPlayers" label="Enter the number of MinimaxAlfaBeta agents (they cannot play against more than one player): " placeholder="Enter a number..." type="number" />
-                        <img src={minimaxABAgent} alt="minimax alfa beta agent" className="settings-agent" />
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "inherit",
+                                alignItems: "center",
+                                justifyContent: "flex-start",
+                            }}
+                        >
+                            <InputField name="numberOfMinimaxPlayers" label="Enter the number of Minimax agents (they cannot play against more than one player): " placeholder="Enter a number..." type="number" />
+                            <img src={minimaxAgent} alt="minimax agent" className="settings-agent" />
+                        </div>
+
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "inherit",
+                                alignItems: "center",
+                                justifyContent: "flex-end",
+                            }}
+                        >
+                            <InputField name="numberOfMinimaxABPlayers" label="Enter the number of MinimaxAlfaBeta agents (they cannot play against more than one player): " placeholder="Enter a number..." type="number" />
+                            <img src={minimaxABAgent} alt="minimax alfa beta agent" className="settings-agent" />
+                        </div>
                     </div>
 
                     <div className="row">
-                        <InputField name="numberOfExpectimaxPlayers" label="Enter the number of Expectimax agents(they cannot play against more than one player): " placeholder="Enter a number..." type="number" />
-                        <img src={expectimaxAgent} alt="minimax agent" className="settings-agent" />
-                        <InputField name="numberOfMaxNPlayers" label="Enter the number of MaxN agents: " placeholder="Enter a number..." type="number" />
-                        <img src={maxNAgent} alt="minimax agent" className="settings-agent" />
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "inherit",
+                                alignItems: "center",
+                                justifyContent: "flex-start",
+                            }}
+                        >
+                            <InputField name="numberOfExpectimaxPlayers" label="Enter the number of Expectimax agents(they cannot play against more than one player): " placeholder="Enter a number..." type="number" />
+                            <img src={expectimaxAgent} alt="minimax agent" className="settings-agent" />
+                        </div>
+                        
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "inherit",
+                                alignItems: "center",
+                                justifyContent: "flex-end",
+                            }}
+                        >
+                            <InputField name="numberOfMaxNPlayers" label="Enter the number of MaxN agents: " placeholder="Enter a number..." type="number" />
+                            <img src={maxNAgent} alt="minimax agent" className="settings-agent" />
+                        </div>
                     </div>
 
                     <div className="row">
@@ -162,7 +200,7 @@ function Settings() {
                             width: "100%",
                             display: "flex",
                             flexDirection: matchMobile ? "column-reverse" : "row",
-                            justifyContent: "space-between",
+                            justifyContent: "space-around",
                             alignItems: matchMobile ? "center" : "flex-end",
                             margin: "50px 0",
                         }}
