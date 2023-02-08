@@ -1,6 +1,9 @@
 import { observer } from "mobx-react-lite";
 import { useStore } from "../stores/store";
-import compAgent from "../assets/StudentAgent.png";
+import minimaxABAgent from "../assets/StudentAgent.png";
+import minimaxAgent from "../assets/StudentAgentMinimax.png";
+import expectimaxAgent from "../assets/StudentAgentExpectimax.png";
+import maxNAgent from "../assets/StudentAgentMaxN.png";
 import road from '../assets/road.png';
 import hole0 from '../assets/hole0.png';
 import hole1 from '../assets/hole1.png';
@@ -41,6 +44,7 @@ function Tile({ tile, row, col }: Props) {
         currentAgents,
         currentTurn,
         gameIsOver,
+        algorithmsInUse,
     }} = useStore();
 
     function handleTileClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
@@ -79,6 +83,22 @@ function Tile({ tile, row, col }: Props) {
             return -1;
     }
 
+    const getCompAgent = () => {
+        if (isAiAgentHere())
+            switch(algorithmsInUse[tile]) {
+                case "minimax":
+                    return minimaxAgent;
+                case "minimaxAB":
+                    return minimaxABAgent;
+                case "expectimax":
+                    return expectimaxAgent;
+                case "maxN":
+                    return maxNAgent;
+            }
+        else
+            return "";
+    }
+
     return (
         <div className={"tile "} onClick={handleTileClick}
             style={{
@@ -90,7 +110,7 @@ function Tile({ tile, row, col }: Props) {
             }
 
             {isAiAgentHere() && !isHole() &&
-                <img src={compAgent} alt="comp agent" className="tileAgent" />
+                <img src={getCompAgent()} alt="comp agent" className="tileAgent" />
             }
 
             {isLooser() &&

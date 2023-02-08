@@ -90,8 +90,7 @@ function PyStolovina() {
               p<span style={{ color: "red", fontWeight: "bold" }}>AI</span>thon Games Launcher
           </Typography>
       </Grid2>
-
-      {userPlayers.includes(currentTurn) && !gameIsOver && (
+      {userPlayers.includes(currentTurn) && !gameIsOver ? (
         <>
           <Typography
             sx={{
@@ -109,6 +108,17 @@ function PyStolovina() {
             <img src={bole} alt="Bole" className={"agent " + (currentAgents[+currentTurn] === 3 && "current")} onClick={handleAgentChange} />
           </div>
         </>
+      ) : (
+        <Typography
+          sx={{
+            fontFamily: "Roboto",
+            color: "white",
+            margin: { xs: "10px 0", sm: "10px 0", md: "20px 0", lg: "30px 0", xl: "50px 0" },
+            fontSize: { xs: "20px", sm: "22px", md: "24px", lg: "26px", xl: "28px" },
+          }}
+        >
+          {gameIsOver ? "Game is over!" : "Computer is playing..."}
+        </Typography>
       )}
 
       {settingsOpen ? (

@@ -8,6 +8,10 @@ import InputField from "./common/InputField";
 import '../App.css';
 import { Button, useMediaQuery } from "@mui/material";
 import ValidationError from "./common/ValidationError";
+import minimaxAgent from "../assets/StudentAgentMinimax.png"
+import minimaxABAgent from "../assets/StudentAgent.png"
+import expectimaxAgent from "../assets/StudentAgentExpectimax.png"
+import maxNAgent from "../assets/StudentAgentMaxN.png"
 
 
 function Settings() {
@@ -51,6 +55,11 @@ function Settings() {
 
                 if (sumOfAllPlayers < 2) {
                     toast.error("You must have at least two players");
+                    return;
+                }
+
+                if (sumOfAllPlayers > 5) {
+                    toast.error("Too many players. Getting too crowded here.");
                     return;
                 }
 
@@ -103,7 +112,8 @@ function Settings() {
                     .min(0, "Must be at least 0")
                     .max(2, "Must be at most 2"),
                 numberOfUserPlayers: Yup.number()
-                    .min(0, "Must be at least 0"),
+                    .min(0, "Must be at least 0")
+                    .max(4, "Must be at most 4"),
             })}
         >
             {({ isSubmitting, handleSubmit, isValid, dirty, errors, resetForm }) => (
@@ -122,12 +132,16 @@ function Settings() {
 
                     <div className="row">
                         <InputField name="numberOfMinimaxPlayers" label="Enter the number of Minimax agents (they cannot play against more than one player): " placeholder="Enter a number..." type="number" />
+                        <img src={minimaxAgent} alt="minimax agent" className="settings-agent" />
                         <InputField name="numberOfMinimaxABPlayers" label="Enter the number of MinimaxAlfaBeta agents (they cannot play against more than one player): " placeholder="Enter a number..." type="number" />
+                        <img src={minimaxABAgent} alt="minimax alfa beta agent" className="settings-agent" />
                     </div>
 
                     <div className="row">
                         <InputField name="numberOfExpectimaxPlayers" label="Enter the number of Expectimax agents(they cannot play against more than one player): " placeholder="Enter a number..." type="number" />
+                        <img src={expectimaxAgent} alt="minimax agent" className="settings-agent" />
                         <InputField name="numberOfMaxNPlayers" label="Enter the number of MaxN agents: " placeholder="Enter a number..." type="number" />
+                        <img src={maxNAgent} alt="minimax agent" className="settings-agent" />
                     </div>
 
                     <div className="row">

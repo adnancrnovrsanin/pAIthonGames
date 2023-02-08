@@ -19,7 +19,7 @@ export default class GameStore {
     gameIsOver: boolean = false;
     loosers: Array<string> = [];
     currentTurn: string = '';
-    algorithmsInUse: AlgorithmsInUse = {};
+    algorithmsInUse: AlgorithmsInUse = {}; // player : algorithm (minimax, minimaxAB, expectimax, maxN)
     numberOfMinimaxPlayers: number = 0;
     numberOfMinimaxABPlayers: number = 1;
     numberOfExpectimaxPlayers: number = 0;
@@ -126,10 +126,9 @@ export default class GameStore {
 
     nextTurn = () => {
         this.currentTurn = this.allPlayersSorted[(this.allPlayersSorted.indexOf(this.currentTurn) + 1) % this.allPlayersSorted.length];
-        if (this.loosers.includes(this.currentTurn)) {
-            this.nextTurn();
-            return;
-        }
+        while (this.loosers.includes(this.currentTurn))
+            this.currentTurn = this.allPlayersSorted[(this.allPlayersSorted.indexOf(this.currentTurn) + 1) % this.allPlayersSorted.length];
+            
         if (this.aiPlayers.includes(this.currentTurn))
             this.makeAComputerMove(this.currentTurn);
     }
@@ -174,7 +173,6 @@ export default class GameStore {
         this.thinking = true;
         const response = await axios.post(`${APIBase}` + 'loosers', { board: this.board });
         runInAction(() => {
-            console.log(response);
             this.loosers = response.data.loosers;
             this.gameIsOver = response.data.gameIsOver;
             this.thinking = false;
