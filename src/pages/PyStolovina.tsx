@@ -28,6 +28,7 @@ function PyStolovina() {
     setSettingsOpen,
     userPlayers,
     gameIsOver,
+    thinking,
   } } = useStore();
 
   const theme = useTheme();
@@ -147,7 +148,10 @@ function PyStolovina() {
 
           <button
             className="generateMapButton"
-            onClick={() => loadMap()}
+            onClick={() => {
+              if (!thinking)
+                loadMap();
+            }}
           >
             {"New Game"}
           </button>
